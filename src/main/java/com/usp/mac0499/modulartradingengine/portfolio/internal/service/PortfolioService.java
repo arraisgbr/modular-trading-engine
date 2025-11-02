@@ -1,6 +1,6 @@
 package com.usp.mac0499.modulartradingengine.portfolio.internal.service;
 
-import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioService;
+import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioServiceExternal;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.entities.Portfolio;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions.PortfolioNotFoundException;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.values.Money;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class PortfolioService implements IPortfolioServiceInternal, IPortfolioService {
+public class PortfolioService implements IPortfolioServiceInternal, IPortfolioServiceExternal {
 
     private final PortfolioRepository portfolioRepository;
 
