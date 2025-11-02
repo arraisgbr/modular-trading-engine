@@ -5,7 +5,7 @@ import com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities.Ass
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetNotFoundException;
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.values.Money;
 import com.usp.mac0499.modulartradingengine.catalog.internal.infrastructure.repositories.AssetRepository;
-import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetService;
+import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetServiceInternal;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AssetService implements IAssetService, IAssetServiceExternal {
+public class AssetService implements IAssetServiceInternal, IAssetServiceExternal {
 
     private final AssetRepository assetRepository;
 

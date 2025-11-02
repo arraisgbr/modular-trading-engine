@@ -3,7 +3,7 @@ package com.usp.mac0499.modulartradingengine.catalog.internal.api.controller;
 import com.usp.mac0499.modulartradingengine.catalog.internal.api.dtos.request.AssetRequest;
 import com.usp.mac0499.modulartradingengine.catalog.internal.api.dtos.response.AssetResponse;
 import com.usp.mac0499.modulartradingengine.catalog.internal.api.mappers.AssetMapper;
-import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetService;
+import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetServiceInternal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RequiredArgsConstructor
 public class AssetController {
 
-    private final IAssetService assetService;
+    private final IAssetServiceInternal assetService;
 
     private final AssetMapper assetMapper;
 

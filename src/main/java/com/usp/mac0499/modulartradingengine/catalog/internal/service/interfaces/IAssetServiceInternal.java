@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-public interface IAssetService {
+public interface IAssetServiceInternal {
 
     Asset createAsset(String code, BigDecimal price, Integer quantity);
 
