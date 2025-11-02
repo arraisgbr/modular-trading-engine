@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -45,5 +46,11 @@ public class Asset {
             throw new AssetQuantityCantBeNegative(this.id);
         }
         this.quantity--;
+    }
+
+    public void setPrice(Money newPrice) {
+        Optional.ofNullable(newPrice).ifPresentOrElse(price -> this.price = price, () -> {
+            throw new IllegalArgumentException();
+        });
     }
 }
