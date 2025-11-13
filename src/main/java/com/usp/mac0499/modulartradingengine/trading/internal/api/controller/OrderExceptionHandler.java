@@ -1,6 +1,6 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.api.controller;
 
-import com.usp.mac0499.modulartradingengine.trading.internal.api.dtos.response.ErrorResponse;
+import com.usp.mac0499.modulartradingengine.sharedkernel.api.dtos.response.ErrorResponse;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderCantBeCancelledException;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -3,9 +3,9 @@ package com.usp.mac0499.modulartradingengine.catalog.internal.service;
 import com.usp.mac0499.modulartradingengine.catalog.external.IAssetServiceExternal;
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities.Asset;
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetNotFoundException;
-import com.usp.mac0499.modulartradingengine.catalog.internal.domain.values.Money;
 import com.usp.mac0499.modulartradingengine.catalog.internal.infrastructure.repositories.AssetRepository;
 import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetServiceInternal;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,9 +22,7 @@ public class AssetService implements IAssetServiceInternal, IAssetServiceExterna
     }
 
     @Override
-    public Asset createAsset(String code, BigDecimal price, Integer quantity) {
-        var priceMoney = new Money(price);
-        var asset = new Asset(code, priceMoney, quantity);
+    public Asset createAsset(Asset asset) {
         return assetRepository.save(asset);
     }
 
@@ -74,12 +72,11 @@ public class AssetService implements IAssetServiceInternal, IAssetServiceExterna
     @Override
     public void updateValue(UUID id, BigDecimal newPrice) {
         assetRepository.findById(id).ifPresentOrElse(asset -> {
-                    var price = new Money(newPrice);
-                    asset.setPrice(price);
-                    assetRepository.save(asset);
-                }, () -> {
-                    throw new AssetNotFoundException(id);
-                }
-        );
+            var price = new Money(newPrice);
+            asset.setPrice(price);
+            assetRepository.save(asset);
+        }, () -> {
+            throw new AssetNotFoundException(id);
+        });
     }
 }

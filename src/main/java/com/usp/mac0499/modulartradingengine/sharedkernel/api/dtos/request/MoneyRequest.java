@@ -1,4 +1,4 @@
-package com.usp.mac0499.modulartradingengine.portfolio.internal.api.dtos.request;
+package com.usp.mac0499.modulartradingengine.sharedkernel.api.dtos.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

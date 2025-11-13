@@ -1,7 +1,6 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories;
 
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Order;
-import com.usp.mac0499.modulartradingengine.trading.internal.domain.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

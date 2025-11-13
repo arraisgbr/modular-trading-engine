@@ -1,9 +1,9 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.domain.entities;
 
-import com.usp.mac0499.modulartradingengine.trading.internal.domain.enums.OrderStatus;
-import com.usp.mac0499.modulartradingengine.trading.internal.domain.enums.OrderType;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.OrderStatus;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.OrderType;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderCantBeCancelledException;
-import com.usp.mac0499.modulartradingengine.trading.internal.domain.values.Money;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

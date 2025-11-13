@@ -1,7 +1,7 @@
 package com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities;
 
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetQuantityCantBeNegative;
-import com.usp.mac0499.modulartradingengine.catalog.internal.domain.values.Money;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,7 +1,7 @@
 package com.usp.mac0499.modulartradingengine.portfolio.internal.service.interfaces;
 
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.entities.Portfolio;
-import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.values.Money;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 
 import java.util.UUID;
 

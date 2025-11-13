@@ -23,8 +23,9 @@ public class OrderController {
     private final OrderMapper orderMapper;
 
     @PostMapping
-    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
-        var order = tradingService.createOrder(orderRequest.portfolioId(), orderRequest.assetId(), orderRequest.price(), orderRequest.quantity(), orderRequest.type());
+    public ResponseEntity<OrderResponse> createOrder(@RequestBody OrderRequest orderRequestDto) {
+        var orderRequest = orderMapper.toEntity(orderRequestDto);
+        var order = tradingService.createOrder(orderRequest);
         var orderResponse = orderMapper.toResponse(order);
         var location = fromCurrentRequest().path("/{id}").buildAndExpand(orderResponse.id()).toUri();
         return ResponseEntity.created(location).body(orderResponse);

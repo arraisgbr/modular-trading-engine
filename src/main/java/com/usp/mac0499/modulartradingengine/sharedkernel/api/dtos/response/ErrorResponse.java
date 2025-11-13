@@ -1,4 +1,4 @@
-package com.usp.mac0499.modulartradingengine.trading.internal.api.dtos.response;
+package com.usp.mac0499.modulartradingengine.sharedkernel.api.dtos.response;
 
 import java.time.Instant;
 

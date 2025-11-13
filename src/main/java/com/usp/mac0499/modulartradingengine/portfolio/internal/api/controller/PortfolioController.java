@@ -1,10 +1,10 @@
 package com.usp.mac0499.modulartradingengine.portfolio.internal.api.controller;
 
-import com.usp.mac0499.modulartradingengine.portfolio.internal.api.dtos.request.MoneyRequest;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.api.dtos.response.PortfolioResponse;
-import com.usp.mac0499.modulartradingengine.portfolio.internal.api.mappers.MoneyMapper;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.api.mappers.PortfolioMapper;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.service.interfaces.IPortfolioServiceInternal;
+import com.usp.mac0499.modulartradingengine.sharedkernel.api.dtos.request.MoneyRequest;
+import com.usp.mac0499.modulartradingengine.sharedkernel.api.mappers.MoneyMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +22,7 @@ public class PortfolioController {
     private final IPortfolioServiceInternal portfolioService;
 
     private final PortfolioMapper portfolioMapper;
+
     private final MoneyMapper moneyMapper;
 
     @PostMapping

@@ -1,4 +1,4 @@
-package com.usp.mac0499.modulartradingengine.catalog.internal.domain.values;
+package com.usp.mac0499.modulartradingengine.sharedkernel.domain.values;
 
 import java.math.BigDecimal;
 import java.util.Objects;

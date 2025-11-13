@@ -3,9 +3,9 @@ package com.usp.mac0499.modulartradingengine.portfolio.internal.service;
 import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioServiceExternal;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.entities.Portfolio;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions.PortfolioNotFoundException;
-import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.values.Money;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.service.interfaces.IPortfolioServiceInternal;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

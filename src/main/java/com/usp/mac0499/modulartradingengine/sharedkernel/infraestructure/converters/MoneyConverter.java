@@ -1,6 +1,6 @@
-package com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.converters;
+package com.usp.mac0499.modulartradingengine.sharedkernel.infraestructure.converters;
 
-import com.usp.mac0499.modulartradingengine.trading.internal.domain.values.Money;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

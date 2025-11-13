@@ -23,11 +23,12 @@ public class AssetController {
     private final AssetMapper assetMapper;
 
     @PostMapping
-    public ResponseEntity<AssetResponse> createAsset(@RequestBody AssetRequest assetRequest) {
-        var asset = assetService.createAsset(assetRequest.code(), assetRequest.value(), assetRequest.quantity());
-        var assetResponse = assetMapper.toResponse(asset);
-        var location = fromCurrentRequest().path("/{id}").buildAndExpand(assetResponse.id()).toUri();
-        return ResponseEntity.created(location).body(assetResponse);
+    public ResponseEntity<AssetResponse> createAsset(@RequestBody AssetRequest assetRequestDto) {
+        var assetRequest = assetMapper.toEntity(assetRequestDto);
+        var asset = assetService.createAsset(assetRequest);
+        var response = assetMapper.toResponse(asset);
+        var location = fromCurrentRequest().path("/{id}").buildAndExpand(response.id()).toUri();
+        return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping("/{id}")
