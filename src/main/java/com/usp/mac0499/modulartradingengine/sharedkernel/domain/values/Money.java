@@ -24,6 +24,11 @@ public record Money(BigDecimal value) {
         return new Money(this.value.subtract(other.value));
     }
 
+    public Money multiply(Money other) {
+        Objects.requireNonNull(other, "Value cannot be null.");
+        return new Money(this.value.multiply(other.value));
+    }
+
     public boolean isGreaterThanOrEqual(Money other) {
         Objects.requireNonNull(other, "Value cannot be null.");
         return this.value().compareTo((other.value())) >= 0;
