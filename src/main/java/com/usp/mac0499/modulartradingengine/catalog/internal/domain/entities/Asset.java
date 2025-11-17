@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -13,6 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 public class Asset {
+
+    private final double PRICE_ADJUSTMENT_FACTOR = 0.15;
 
     @Id
     private UUID id;
@@ -31,7 +34,10 @@ public class Asset {
 
     public void updatePrice(Money salePrice) {
         Optional.ofNullable(salePrice).ifPresentOrElse(slPrice -> {
-            this.price = this.price.update(slPrice);
+            var adjustmentFactor = new Money(BigDecimal.valueOf(PRICE_ADJUSTMENT_FACTOR));
+            this.price = this.price.isGreaterThanOrEqual(slPrice)
+                    ? this.price.subtract(this.price.subtract(slPrice).multiply(adjustmentFactor))
+                    : this.price.add(slPrice.subtract(this.price).multiply(adjustmentFactor));
         }, () -> {
             throw new IllegalArgumentException();
         });
