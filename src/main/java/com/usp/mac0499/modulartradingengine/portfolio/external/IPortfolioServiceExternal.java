@@ -1,12 +1,21 @@
 package com.usp.mac0499.modulartradingengine.portfolio.external;
 
-import java.math.BigDecimal;
+import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
+
 import java.util.UUID;
 
 public interface IPortfolioServiceExternal {
 
-    void balanceReserved(UUID id, BigDecimal valueToReserve);
+    void executeTransaction(UUID debtorId, UUID creditorId, UUID assetId, Long assetQuantity, Money price);
 
-    void balanceReleased(UUID id, BigDecimal valueToRelease);
+    void releaseBalance(UUID portfolioId, Money amount);
+
+    void releaseAsset(UUID portfolioId, UUID assetId, Long quantity);
+
+    void reserveBalance(UUID portfolioId, Money amount);
+
+    void reserveAsset(UUID portfolioId, UUID assetId, Long quantity);
+
+    void removeDisabledAssetFromPortfolio(UUID assetId);
 
 }

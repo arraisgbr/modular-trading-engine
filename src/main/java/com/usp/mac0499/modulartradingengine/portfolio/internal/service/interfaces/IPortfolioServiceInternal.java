@@ -13,8 +13,8 @@ public interface IPortfolioServiceInternal {
 
     void deletePortfolio(UUID id);
 
-    void depositValue(UUID id, Money valueToDeposit);
+    void depositValue(UUID id, Money amount);
 
-    void withdrawalValue(UUID id, Money valueToWithdrawal);
+    void withdrawalValue(UUID id, Money amount);
 
 }
