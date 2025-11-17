@@ -28,7 +28,7 @@ public class Order {
     @Column(name = "quantity")
     private Long quantity;
 
-    @Column(name = "price")
+    @Embedded
     private Money price;
 
     @Enumerated(EnumType.STRING)

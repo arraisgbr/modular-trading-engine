@@ -17,4 +17,10 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
     @Query("SELECT o FROM Order o WHERE o.status <> 'CANCELED'")
     List<Order> findValidOrders();
 
+    @Query("SELECT o FROM Order o WHERE o.assetId = :assetId AND o.status <> 'CANCELED'")
+    List<Order> findValidOrdersByAssetId(@Param("assetId") UUID assetId);
+
+    @Query("SELECT o FROM Order o WHERE o.portfolioId = :assetId AND o.status <> 'CANCELED'")
+    List<Order> findValidOrdersByPortfolioId(@Param("portfolioId") UUID portfolioId);
+
 }

@@ -1,6 +1,5 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Order;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderNotFoundException;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService implements IOrderServiceInternal, IOrderServiceExternal {
+public class OrderServiceInternal implements IOrderServiceInternal {
 
     private final OrderRepository orderRepository;
 
