@@ -1,11 +1,7 @@
 package com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities;
 
-import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetQuantityCantBeNegative;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,35 +17,22 @@ public class Asset {
     @Id
     private UUID id;
 
-    @Column(name = "code", unique = true)
+    @Column(unique = true)
     private String code;
 
-    @Column(name = "price")
+    @Embedded
     private Money price;
-
-    @Column(name = "quantity")
-    private Integer quantity;
 
     public Asset(String code, Money price, Integer quantity) {
         this.id = UUID.randomUUID();
         this.code = code;
         this.price = price;
-        this.quantity = quantity;
     }
 
-    public void increaseQuantity() {
-        this.quantity++;
-    }
-
-    public void decreaseQuantity() {
-        if (this.quantity == 0) {
-            throw new AssetQuantityCantBeNegative(this.id);
-        }
-        this.quantity--;
-    }
-
-    public void setPrice(Money newPrice) {
-        Optional.ofNullable(newPrice).ifPresentOrElse(price -> this.price = price, () -> {
+    public void updatePrice(Money salePrice) {
+        Optional.ofNullable(salePrice).ifPresentOrElse(slPrice -> {
+            this.price = this.price.update(slPrice);
+        }, () -> {
             throw new IllegalArgumentException();
         });
     }
