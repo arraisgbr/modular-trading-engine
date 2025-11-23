@@ -5,6 +5,7 @@ import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -96,8 +97,12 @@ public class Portfolio {
         balance.debitReserved(quantity);
     }
 
-    public void removeAsset(UUID assetId) {
-        this.assets.removeIf(asset -> asset.getAssetId().equals(assetId));
+    public void removeAsset(UUID assetId, Money price) {
+        var assetsToRemove = this.assets.stream().filter(asset -> asset.getAssetId().equals(assetId)).toList();
+        assetsToRemove.forEach(asset -> {
+            this.availableBalance = this.availableBalance.add(price.multiply(new Money(BigDecimal.valueOf(asset.getAvailableQuantity()))));
+            this.assets.remove(asset);
+        });
     }
 
     private Optional<AssetBalance> findAssetBalance(UUID assetId) {

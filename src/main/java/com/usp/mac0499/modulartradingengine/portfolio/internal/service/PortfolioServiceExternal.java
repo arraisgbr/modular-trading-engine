@@ -69,12 +69,12 @@ public class PortfolioServiceExternal implements IPortfolioServiceExternal {
 
     @Override
     @Transactional
-    public void removeDisabledAssetFromPortfolio(UUID assetId) {
+    public void removeDisabledAssetFromPortfolio(UUID assetId, Money price) {
         List<Portfolio> portfoliosToUpdate = portfolioRepository.findByAssets_AssetId(assetId);
         for (Portfolio portfolio : portfoliosToUpdate) {
-            portfolio.removeAsset(assetId);
+            portfolio.removeAsset(assetId, price);
+            portfolioRepository.save(portfolio);
         }
-        portfolioRepository.saveAll(portfoliosToUpdate);
     }
 
 }

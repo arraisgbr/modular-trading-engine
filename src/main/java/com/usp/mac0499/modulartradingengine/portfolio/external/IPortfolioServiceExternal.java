@@ -16,6 +16,6 @@ public interface IPortfolioServiceExternal {
 
     void reserveAsset(UUID portfolioId, UUID assetId, Long quantity);
 
-    void removeDisabledAssetFromPortfolio(UUID assetId);
+    void removeDisabledAssetFromPortfolio(UUID assetId, Money price);
 
 }
