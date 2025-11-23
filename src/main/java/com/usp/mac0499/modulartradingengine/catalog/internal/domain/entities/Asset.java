@@ -26,7 +26,7 @@ public class Asset {
     @Embedded
     private Money price;
 
-    public Asset(String code, Money price, Integer quantity) {
+    public Asset(String code, Money price) {
         this.id = UUID.randomUUID();
         this.code = code;
         this.price = price;
@@ -35,9 +35,7 @@ public class Asset {
     public void updatePrice(Money salePrice) {
         Optional.ofNullable(salePrice).ifPresentOrElse(slPrice -> {
             var adjustmentFactor = new Money(BigDecimal.valueOf(PRICE_ADJUSTMENT_FACTOR));
-            this.price = this.price.isGreaterThanOrEqual(slPrice)
-                    ? this.price.subtract(this.price.subtract(slPrice).multiply(adjustmentFactor))
-                    : this.price.add(slPrice.subtract(this.price).multiply(adjustmentFactor));
+            this.price = this.price.isGreaterThanOrEqual(slPrice) ? this.price.subtract(this.price.subtract(slPrice).multiply(adjustmentFactor)) : this.price.add(slPrice.subtract(this.price).multiply(adjustmentFactor));
         }, () -> {
             throw new IllegalArgumentException();
         });

@@ -4,5 +4,5 @@ import com.usp.mac0499.modulartradingengine.sharedkernel.api.dtos.response.Money
 
 import java.util.UUID;
 
-public record AssetResponse(UUID id, String code, MoneyResponse price, Integer quantity) {
+public record AssetResponse(UUID id, String code, MoneyResponse price) {
 }
