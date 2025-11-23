@@ -5,9 +5,10 @@ import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.service.interfaces.IPortfolioServiceInternal;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.PortfolioDeleted;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class PortfolioServiceInternal implements IPortfolioServiceInternal {
 
     private final PortfolioRepository portfolioRepository;
-    private final IOrderServiceExternal orderService;
+    private final ApplicationEventPublisher events;
 
     @Override
     public Portfolio createPortfolio() {
@@ -30,10 +31,11 @@ public class PortfolioServiceInternal implements IPortfolioServiceInternal {
     }
 
     @Override
+    @Transactional
     public void deletePortfolio(UUID id) {
         portfolioRepository.findById(id).ifPresentOrElse(portfolio -> {
             portfolioRepository.delete(portfolio);
-            orderService.removeOrdersInvolvingPortfolio(portfolio.getId());
+            events.publishEvent(new PortfolioDeleted(portfolio.getId()));
         }, () -> {
             throw new PortfolioNotFoundException(id);
         });
