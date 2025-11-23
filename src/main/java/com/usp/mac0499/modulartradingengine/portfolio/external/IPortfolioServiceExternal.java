@@ -1,6 +1,7 @@
 package com.usp.mac0499.modulartradingengine.portfolio.external;
 
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
 
 import java.util.UUID;
 
@@ -16,6 +17,6 @@ public interface IPortfolioServiceExternal {
 
     void reserveAsset(UUID portfolioId, UUID assetId, Long quantity);
 
-    void removeDisabledAssetFromPortfolio(UUID assetId, Money price);
+    void removeDisabledAssetFromPortfolio(AssetDeleted event);
 
 }

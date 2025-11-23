@@ -4,9 +4,10 @@ import com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities.Ass
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetNotFoundException;
 import com.usp.mac0499.modulartradingengine.catalog.internal.infrastructure.repositories.AssetRepository;
 import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetServiceInternal;
-import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioServiceExternal;
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,7 @@ import java.util.UUID;
 public class AssetServiceInternal implements IAssetServiceInternal {
 
     private final AssetRepository assetRepository;
-    private final IOrderServiceExternal orderService;
-    private final IPortfolioServiceExternal portfolioService;
+    private final ApplicationEventPublisher events;
 
     @Override
     public Asset createAsset(Asset asset) {
@@ -36,10 +36,10 @@ public class AssetServiceInternal implements IAssetServiceInternal {
     }
 
     @Override
+    @Transactional
     public void deleteAsset(UUID id) {
         assetRepository.findById(id).ifPresentOrElse(asset -> {
-            orderService.removeOrdersInvolvingAsset(asset.getId());
-            portfolioService.removeDisabledAssetFromPortfolio(asset.getId(), asset.getPrice());
+            events.publishEvent(new AssetDeleted(asset.getId(), asset.getPrice()));
             assetRepository.delete(asset);
         }, () -> {
             throw new AssetNotFoundException(id);

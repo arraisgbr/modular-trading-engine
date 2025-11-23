@@ -5,8 +5,10 @@ import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.entities.P
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions.PortfolioNotFoundException;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,11 +70,11 @@ public class PortfolioServiceExternal implements IPortfolioServiceExternal {
     }
 
     @Override
-    @Transactional
-    public void removeDisabledAssetFromPortfolio(UUID assetId, Money price) {
-        List<Portfolio> portfoliosToUpdate = portfolioRepository.findByAssets_AssetId(assetId);
+    @ApplicationModuleListener
+    public void removeDisabledAssetFromPortfolio(AssetDeleted event) {
+        List<Portfolio> portfoliosToUpdate = portfolioRepository.findByAssets_AssetId(event.assetId());
         for (Portfolio portfolio : portfoliosToUpdate) {
-            portfolio.removeAsset(assetId, price);
+            portfolio.removeAsset(event.assetId(), event.price());
             portfolioRepository.save(portfolio);
         }
     }
