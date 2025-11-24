@@ -5,14 +5,13 @@ import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.entities.P
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions.PortfolioNotFoundException;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
-import jakarta.transaction.Transactional;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,50 +20,56 @@ public class PortfolioServiceExternal implements IPortfolioServiceExternal {
     private final PortfolioRepository portfolioRepository;
 
     @Override
-    @Transactional
-    public void executeTransaction(UUID debtorId, UUID creditorId, UUID assetId, Long assetQuantity, Money price) {
-        Portfolio debtorPortfolio = portfolioRepository.findById(debtorId).orElseThrow(() -> new PortfolioNotFoundException(debtorId));
-        Portfolio creditorPortfolio = portfolioRepository.findById(creditorId).orElseThrow(() -> new PortfolioNotFoundException(creditorId));
+    @ApplicationModuleListener
+    public void executeTransaction(TransactionCompleted event) {
+        Portfolio debtorPortfolio = portfolioRepository.findById(event.debtorPortfolioId()).orElseThrow(() -> new PortfolioNotFoundException(event.debtorPortfolioId()));
+        Portfolio creditorPortfolio = portfolioRepository.findById(event.creditorPortfolioId()).orElseThrow(() -> new PortfolioNotFoundException(event.creditorPortfolioId()));
 
-        debtorPortfolio.executeDebtorTransaction(price, assetId, assetQuantity);
-        creditorPortfolio.executeCreditorTransaction(price, assetId, assetQuantity);
+        debtorPortfolio.executeDebtorTransaction(event.price(), event.assetId(), event.quantity());
+        creditorPortfolio.executeCreditorTransaction(event.price(), event.assetId(), event.quantity());
 
         portfolioRepository.save(debtorPortfolio);
         portfolioRepository.save(creditorPortfolio);
     }
 
     @Override
-    public void releaseBalance(UUID portfolioId, Money amount) {
-        portfolioRepository.findById(portfolioId).ifPresentOrElse(portfolio -> {
+    @ApplicationModuleListener
+    public void releaseBalance(BuyOrderCancelled event) {
+        portfolioRepository.findById(event.portfolioId()).ifPresentOrElse(portfolio -> {
+            Money amount = event.price().multiply(new Money(BigDecimal.valueOf(event.quantity())));
             portfolio.releaseBalance(amount);
             portfolioRepository.save(portfolio);
         }, () -> {
-            throw new PortfolioNotFoundException(portfolioId);
+            throw new PortfolioNotFoundException(event.portfolioId());
         });
     }
 
     @Override
-    public void releaseAsset(UUID portfolioId, UUID assetId, Long quantity) {
-        portfolioRepository.findByAssets_AssetId(assetId).forEach(portfolio -> {
-            portfolio.releaseAsset(assetId, quantity);
+    @ApplicationModuleListener
+    public void releaseAsset(SellOrderCancelled event) {
+        portfolioRepository.findByAssets_AssetId(event.assetId()).forEach(portfolio -> {
+            portfolio.releaseAsset(event.assetId(), event.quantity());
             portfolioRepository.save(portfolio);
         });
     }
 
     @Override
-    public void reserveBalance(UUID portfolioId, Money amount) {
-        portfolioRepository.findById(portfolioId).ifPresentOrElse(portfolio -> {
+    @ApplicationModuleListener
+    public void reserveBalance(BuyOrderCreated event) {
+        portfolioRepository.findById(event.portfolioId()).ifPresentOrElse(portfolio -> {
+            Money amount = event.price().multiply(new Money(BigDecimal.valueOf(event.quantity())));
             portfolio.reserveBalance(amount);
             portfolioRepository.save(portfolio);
         }, () -> {
-            throw new PortfolioNotFoundException(portfolioId);
+            throw new PortfolioNotFoundException(event.portfolioId());
         });
     }
 
     @Override
-    public void reserveAsset(UUID portfolioId, UUID assetId, Long quantity) {
-        portfolioRepository.findByAssets_AssetId(assetId).forEach(portfolio -> {
-            portfolio.reserveAsset(assetId, quantity);
+    @ApplicationModuleListener
+    public void reserveAsset(SellOrderCreated event) {
+        portfolioRepository.findByAssets_AssetId(event.assetId()).forEach(portfolio -> {
+            portfolio.reserveAsset(event.assetId(), event.quantity());
             portfolioRepository.save(portfolio);
         });
     }

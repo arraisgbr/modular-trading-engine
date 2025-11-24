@@ -1,21 +1,18 @@
 package com.usp.mac0499.modulartradingengine.portfolio.external;
 
-import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
-
-import java.util.UUID;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.*;
 
 public interface IPortfolioServiceExternal {
 
-    void executeTransaction(UUID debtorId, UUID creditorId, UUID assetId, Long assetQuantity, Money price);
+    void executeTransaction(TransactionCompleted event);
 
-    void releaseBalance(UUID portfolioId, Money amount);
+    void releaseBalance(BuyOrderCancelled event);
 
-    void releaseAsset(UUID portfolioId, UUID assetId, Long quantity);
+    void releaseAsset(SellOrderCancelled event);
 
-    void reserveBalance(UUID portfolioId, Money amount);
+    void reserveBalance(BuyOrderCreated event);
 
-    void reserveAsset(UUID portfolioId, UUID assetId, Long quantity);
+    void reserveAsset(SellOrderCreated event);
 
     void removeDisabledAssetFromPortfolio(AssetDeleted event);
 

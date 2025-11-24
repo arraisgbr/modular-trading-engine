@@ -1,17 +1,16 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
-import com.usp.mac0499.modulartradingengine.catalog.external.IAssetServiceExternal;
-import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioServiceExternal;
-import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.OrderType;
+import com.usp.mac0499.modulartradingengine.sharedkernel.events.*;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Order;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderNotFoundException;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
 import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.IOrderServiceInternal;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,15 +19,15 @@ import java.util.UUID;
 public class OrderServiceInternal implements IOrderServiceInternal {
 
     private final OrderRepository orderRepository;
-    private final IPortfolioServiceExternal portfolioService;
-    private final IAssetServiceExternal assetService;
+    private final ApplicationEventPublisher events;
 
     @Override
+    @Transactional
     public Order createOrder(Order order) {
         if (order.getType() == OrderType.BUY) {
-            portfolioService.reserveBalance(order.getPortfolioId(), order.getPrice().multiply(new Money(BigDecimal.valueOf(order.getQuantity()))));
+            events.publishEvent(new BuyOrderCreated(order.getPortfolioId(), order.getPrice(), order.getQuantity()));
         } else {
-            portfolioService.reserveAsset(order.getPortfolioId(), order.getAssetId(), order.getQuantity());
+            events.publishEvent(new SellOrderCreated(order.getPortfolioId(), order.getAssetId(), order.getQuantity()));
         }
         return tryToMatchOrder(order);
     }
@@ -44,13 +43,14 @@ public class OrderServiceInternal implements IOrderServiceInternal {
     }
 
     @Override
+    @Transactional
     public void cancelOrder(UUID id) {
         orderRepository.findById(id).ifPresentOrElse(order -> {
             order.cancelOrder();
             if (order.getType() == OrderType.BUY) {
-                portfolioService.releaseBalance(order.getPortfolioId(), order.getPrice().multiply(new Money(BigDecimal.valueOf(order.getQuantity()))));
+                events.publishEvent(new BuyOrderCancelled(order.getPortfolioId(), order.getPrice(), order.getQuantity()));
             } else {
-                portfolioService.releaseAsset(order.getPortfolioId(), order.getAssetId(), order.getQuantity());
+                events.publishEvent(new SellOrderCancelled(order.getPortfolioId(), order.getAssetId(), order.getQuantity()));
             }
             orderRepository.save(order);
         }, () -> {
@@ -65,8 +65,7 @@ public class OrderServiceInternal implements IOrderServiceInternal {
             matchOrder.cancelOrder();
             order.cancelOrder();
             orderRepository.save(matchOrder);
-            portfolioService.executeTransaction(buyOrder.getPortfolioId(), sellOrder.getPortfolioId(), order.getAssetId(), order.getQuantity(), order.getPrice());
-            assetService.updateAsset(order.getAssetId(), order.getPrice());
+            events.publishEvent(new TransactionCompleted(buyOrder.getPortfolioId(), sellOrder.getPortfolioId(), order.getAssetId(), order.getQuantity(), order.getPrice()));
         });
         return orderRepository.save(order);
     }
