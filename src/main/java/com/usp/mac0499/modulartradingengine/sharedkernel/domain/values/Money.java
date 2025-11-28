@@ -21,6 +21,9 @@ public record Money(BigDecimal value) {
 
     public Money subtract(Money other) {
         Objects.requireNonNull(other, "Value cannot be null.");
+        if (this.value.subtract(other.value).compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Result value cannot be negative.");
+        }
         return new Money(this.value.subtract(other.value));
     }
 
