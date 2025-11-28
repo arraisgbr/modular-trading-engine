@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -33,11 +33,8 @@ public class Asset {
     }
 
     public void updatePrice(Money salePrice) {
-        Optional.ofNullable(salePrice).ifPresentOrElse(slPrice -> {
-            var adjustmentFactor = new Money(BigDecimal.valueOf(PRICE_ADJUSTMENT_FACTOR));
-            this.price = this.price.isGreaterThanOrEqual(slPrice) ? this.price.subtract(this.price.subtract(slPrice).multiply(adjustmentFactor)) : this.price.add(slPrice.subtract(this.price).multiply(adjustmentFactor));
-        }, () -> {
-            throw new IllegalArgumentException();
-        });
+        Objects.requireNonNull(salePrice, "Sale price cannot be null.");
+        var adjustmentFactor = new Money(BigDecimal.valueOf(PRICE_ADJUSTMENT_FACTOR));
+        this.price = this.price.isGreaterThanOrEqual(salePrice) ? this.price.subtract(this.price.subtract(salePrice).multiply(adjustmentFactor)) : this.price.add(salePrice.subtract(this.price).multiply(adjustmentFactor));
     }
 }
