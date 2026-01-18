@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class OrderListener {
+public class TradingListener {
 
     private final OrderRepository orderRepository;
 

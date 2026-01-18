@@ -5,7 +5,7 @@ import com.usp.mac0499.modulartradingengine.trading.external.*;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Order;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderNotFoundException;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
-import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.IOrderServiceInternal;
+import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.ITradingServiceInternal;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceInternal implements IOrderServiceInternal {
+public class TradingServiceInternal implements ITradingServiceInternal {
 
     private final OrderRepository orderRepository;
     private final ApplicationEventPublisher events;

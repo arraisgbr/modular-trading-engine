@@ -5,7 +5,7 @@ import com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities.Ass
 import java.util.List;
 import java.util.UUID;
 
-public interface IAssetServiceInternal {
+public interface ICatalogServiceInternal {
 
     Asset createAsset(Asset asset);
 

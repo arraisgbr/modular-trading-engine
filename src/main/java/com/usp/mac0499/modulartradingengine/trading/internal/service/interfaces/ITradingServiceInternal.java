@@ -5,7 +5,7 @@ import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Ord
 import java.util.List;
 import java.util.UUID;
 
-public interface IOrderServiceInternal {
+public interface ITradingServiceInternal {
 
     Order createOrder(Order order);
 

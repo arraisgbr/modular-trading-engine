@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AssetListener {
+public class CatalogListener {
 
     private final AssetRepository assetRepository;
 
