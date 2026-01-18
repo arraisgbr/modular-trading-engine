@@ -3,9 +3,9 @@ package com.usp.mac0499.modulartradingengine.catalog.internal.service;
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities.Asset;
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetNotFoundException;
 import com.usp.mac0499.modulartradingengine.catalog.internal.infrastructure.repositories.AssetRepository;
-import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetServiceInternal;
+import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.ICatalogServiceInternal;
 import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioServiceExternal;
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
+import com.usp.mac0499.modulartradingengine.trading.external.ITradingServiceExternal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AssetServiceInternal implements IAssetServiceInternal {
+public class CatalogServiceInternal implements ICatalogServiceInternal {
 
     private final AssetRepository assetRepository;
-    private final IOrderServiceExternal orderService;
+    private final ITradingServiceExternal orderService;
     private final IPortfolioServiceExternal portfolioService;
 
     @Override

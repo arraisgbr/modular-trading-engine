@@ -1,13 +1,13 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
-import com.usp.mac0499.modulartradingengine.catalog.external.IAssetServiceExternal;
+import com.usp.mac0499.modulartradingengine.catalog.external.ICatalogServiceExternal;
 import com.usp.mac0499.modulartradingengine.portfolio.external.IPortfolioServiceExternal;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.OrderType;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Order;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderNotFoundException;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
-import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.IOrderServiceInternal;
+import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.ITradingServiceInternal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +17,11 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceInternal implements IOrderServiceInternal {
+public class TradingServiceInternal implements ITradingServiceInternal {
 
     private final OrderRepository orderRepository;
     private final IPortfolioServiceExternal portfolioService;
-    private final IAssetServiceExternal assetService;
+    private final ICatalogServiceExternal assetService;
 
     @Override
     public Order createOrder(Order order) {

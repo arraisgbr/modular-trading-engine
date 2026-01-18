@@ -4,7 +4,7 @@ import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 
 import java.util.UUID;
 
-public interface IAssetServiceExternal {
+public interface ICatalogServiceExternal {
 
     void updateAsset(UUID assetId, Money updatedPrice);
 

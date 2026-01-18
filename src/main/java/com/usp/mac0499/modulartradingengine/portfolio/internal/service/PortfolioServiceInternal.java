@@ -5,7 +5,7 @@ import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.service.interfaces.IPortfolioServiceInternal;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
+import com.usp.mac0499.modulartradingengine.trading.external.ITradingServiceExternal;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.UUID;
 public class PortfolioServiceInternal implements IPortfolioServiceInternal {
 
     private final PortfolioRepository portfolioRepository;
-    private final IOrderServiceExternal orderService;
+    private final ITradingServiceExternal orderService;
 
     @Override
     public Portfolio createPortfolio() {

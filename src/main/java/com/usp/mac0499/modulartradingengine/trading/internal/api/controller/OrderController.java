@@ -3,7 +3,7 @@ package com.usp.mac0499.modulartradingengine.trading.internal.api.controller;
 import com.usp.mac0499.modulartradingengine.trading.internal.api.dtos.request.OrderRequest;
 import com.usp.mac0499.modulartradingengine.trading.internal.api.dtos.response.OrderResponse;
 import com.usp.mac0499.modulartradingengine.trading.internal.api.mappers.OrderMapper;
-import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.IOrderServiceInternal;
+import com.usp.mac0499.modulartradingengine.trading.internal.service.interfaces.ITradingServiceInternal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final IOrderServiceInternal tradingService;
+    private final ITradingServiceInternal tradingService;
 
     private final OrderMapper orderMapper;
 

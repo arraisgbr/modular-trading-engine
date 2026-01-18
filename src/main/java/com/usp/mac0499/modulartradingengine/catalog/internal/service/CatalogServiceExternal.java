@@ -1,6 +1,6 @@
 package com.usp.mac0499.modulartradingengine.catalog.internal.service;
 
-import com.usp.mac0499.modulartradingengine.catalog.external.IAssetServiceExternal;
+import com.usp.mac0499.modulartradingengine.catalog.external.ICatalogServiceExternal;
 import com.usp.mac0499.modulartradingengine.catalog.internal.infrastructure.repositories.AssetRepository;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AssetServiceExternal implements IAssetServiceExternal {
+public class CatalogServiceExternal implements ICatalogServiceExternal {
 
     private final AssetRepository assetRepository;
 

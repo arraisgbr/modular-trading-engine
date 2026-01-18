@@ -1,6 +1,6 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
+import com.usp.mac0499.modulartradingengine.trading.external.ITradingServiceExternal;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceExternal implements IOrderServiceExternal {
+public class TradingServiceExternal implements ITradingServiceExternal {
 
     private final OrderRepository orderRepository;
 
