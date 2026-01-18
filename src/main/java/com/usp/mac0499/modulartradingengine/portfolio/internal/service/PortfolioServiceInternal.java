@@ -5,7 +5,7 @@ import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.service.interfaces.IPortfolioServiceInternal;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.PortfolioDeleted;
+import com.usp.mac0499.modulartradingengine.portfolio.external.PortfolioDeleted;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

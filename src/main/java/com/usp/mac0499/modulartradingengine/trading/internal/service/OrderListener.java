@@ -1,7 +1,7 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.PortfolioDeleted;
+import com.usp.mac0499.modulartradingengine.catalog.external.AssetDeleted;
+import com.usp.mac0499.modulartradingengine.portfolio.external.PortfolioDeleted;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.modulith.events.ApplicationModuleListener;

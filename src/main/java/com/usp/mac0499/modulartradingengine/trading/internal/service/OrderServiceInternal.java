@@ -1,7 +1,7 @@
 package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.OrderType;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.*;
+import com.usp.mac0499.modulartradingengine.trading.external.*;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.entities.Order;
 import com.usp.mac0499.modulartradingengine.trading.internal.domain.exceptions.OrderNotFoundException;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;

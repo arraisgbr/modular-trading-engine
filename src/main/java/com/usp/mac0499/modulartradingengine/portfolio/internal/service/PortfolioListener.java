@@ -1,10 +1,11 @@
 package com.usp.mac0499.modulartradingengine.portfolio.internal.service;
 
+import com.usp.mac0499.modulartradingengine.catalog.external.AssetDeleted;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.entities.Portfolio;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.domain.exceptions.PortfolioNotFoundException;
 import com.usp.mac0499.modulartradingengine.portfolio.internal.infrastructure.repositories.PortfolioRepository;
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.*;
+import com.usp.mac0499.modulartradingengine.trading.external.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;

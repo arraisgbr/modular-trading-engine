@@ -4,7 +4,7 @@ import com.usp.mac0499.modulartradingengine.catalog.internal.domain.entities.Ass
 import com.usp.mac0499.modulartradingengine.catalog.internal.domain.exceptions.AssetNotFoundException;
 import com.usp.mac0499.modulartradingengine.catalog.internal.infrastructure.repositories.AssetRepository;
 import com.usp.mac0499.modulartradingengine.catalog.internal.service.interfaces.IAssetServiceInternal;
-import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
+import com.usp.mac0499.modulartradingengine.catalog.external.AssetDeleted;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;

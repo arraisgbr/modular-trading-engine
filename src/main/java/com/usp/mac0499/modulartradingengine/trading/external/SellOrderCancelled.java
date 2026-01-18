@@ -1,4 +1,4 @@
-package com.usp.mac0499.modulartradingengine.sharedkernel.events;
+package com.usp.mac0499.modulartradingengine.trading.external;
 
 import java.util.UUID;
 

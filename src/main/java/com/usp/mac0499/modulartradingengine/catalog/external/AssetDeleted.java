@@ -1,4 +1,4 @@
-package com.usp.mac0499.modulartradingengine.sharedkernel.events;
+package com.usp.mac0499.modulartradingengine.catalog.external;
 
 import com.usp.mac0499.modulartradingengine.sharedkernel.domain.values.Money;
 
