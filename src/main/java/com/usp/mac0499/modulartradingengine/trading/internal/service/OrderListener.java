@@ -2,19 +2,17 @@ package com.usp.mac0499.modulartradingengine.trading.internal.service;
 
 import com.usp.mac0499.modulartradingengine.sharedkernel.events.AssetDeleted;
 import com.usp.mac0499.modulartradingengine.sharedkernel.events.PortfolioDeleted;
-import com.usp.mac0499.modulartradingengine.trading.external.IOrderServiceExternal;
 import com.usp.mac0499.modulartradingengine.trading.internal.infrastructure.repositories.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.modulith.events.ApplicationModuleListener;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class OrderServiceExternal implements IOrderServiceExternal {
+public class OrderListener {
 
     private final OrderRepository orderRepository;
 
-    @Override
     @ApplicationModuleListener
     public void removeOrdersInvolvingAsset(AssetDeleted event) {
         orderRepository.findValidOrdersByAssetId(event.assetId()).forEach(order -> {
@@ -23,7 +21,6 @@ public class OrderServiceExternal implements IOrderServiceExternal {
         });
     }
 
-    @Override
     @ApplicationModuleListener
     public void removeOrdersInvolvingPortfolio(PortfolioDeleted event) {
         orderRepository.findValidOrdersByPortfolioId(event.portfolioId()).forEach(order -> {
