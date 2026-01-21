@@ -77,5 +77,3 @@ Para reproduzir o ambiente da **Fase III (Microsserviços)**:
 ---
 
 Trabalho desenvolvido no âmbito do Bacharelado em Ciência da Computação da Universidade de São Paulo (USP).
-
-Página da Monografia: https://www.linux.ime.usp.br/~arraisgbr/
